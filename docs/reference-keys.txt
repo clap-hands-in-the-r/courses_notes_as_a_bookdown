@@ -21,3 +21,7 @@ sharing-your-book
 publishing
 pages
 metadata-for-sharing
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+about-stringr-package
+about-regex-in-r
+learning-markdown

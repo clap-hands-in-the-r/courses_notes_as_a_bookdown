@@ -117,25 +117,8 @@
 
 \title{A Minimal Book Example}
 \author{John Doe}
-\date{2023-08-28}
+\date{2023-08-29}
 
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\newtheorem{conjecture}{Conjecture}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{definition}
-\newtheorem{hypothesis}{Hypothesis}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -197,6 +180,39 @@ As you work, you may start a local server to live preview this HTML book. This p
 This is notes about learning R.
 
 Please build this simple boook!!!!! ahhhhhhhhhhhhha
+
+\hypertarget{about-stringr-package}{%
+\section{About stringr package}\label{about-stringr-package}}
+
+\textbf{Stringr} is more coherent than base R functions for strings treatments.\\
+Stringr functions always begin with prefix \textbf{str\_} ; the first argument is always the string you want to treat. And then comes the pattern you want to identify.
+
+Most common and useful functions in Stringr :
+
+\begin{itemize}
+\tightlist
+\item
+  str\_detect() -\textgreater{} returns a logical vector (a vector of TRUE and FALSE)
+\item
+  str\_subset()
+\item
+  str\_view()
+\item
+  str\_view\_all()
+\item
+  str\_replace()
+\item
+  str\_replace\_all()
+\end{itemize}
+
+\hypertarget{about-regex-in-r}{%
+\section{About Regex in R}\label{about-regex-in-r}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbackslash\textbackslash d stands for any digit 0,1,2, up to 9
+\end{itemize}
 
 \hypertarget{cross}{%
 \chapter{Cross-references}\label{cross}}
@@ -317,38 +333,16 @@ Note that the \texttt{.bib} files need to be listed in the index.Rmd with the YA
 
 The RStudio Visual Markdown Editor can also make it easier to insert citations: \url{https://rstudio.github.io/visual-markdown-editing/\#/citations}
 
-\hypertarget{blocks}{%
-\chapter{Blocks}\label{blocks}}
+\hypertarget{learning-markdown}{%
+\chapter{Learning Markdown}\label{learning-markdown}}
 
-\hypertarget{equations}{%
-\section{Equations}\label{equations}}
+In markdown you need to escape twice the backslash in order to display two backslashes\\
+So what you see here, I wrote it with \textbf{four} not just three : \textbf{\textbackslash\textbackslash{}}
 
-Here is an equation.
+To write a list, you must write a star * followed by a coma a the beginning of a line.
+Before the list starts you need a blankline and same at the end of the list otherwise Mardown won't recognize it.
 
-\begin{equation} 
-  f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k}
-  \label{eq:binom}
-\end{equation}
-
-You may refer to using \texttt{\textbackslash{}@ref(eq:binom)}, like see Equation \eqref{eq:binom}.
-
-\hypertarget{theorems-and-proofs}{%
-\section{Theorems and proofs}\label{theorems-and-proofs}}
-
-Labeled theorems can be referenced in text using \texttt{\textbackslash{}@ref(thm:tri)}, for example, check out this smart theorem \ref{thm:tri}.
-
-\begin{theorem}
-\protect\hypertarget{thm:tri}{}\label{thm:tri}For a right triangle, if \(c\) denotes the \emph{length} of the hypotenuse
-and \(a\) and \(b\) denote the lengths of the \textbf{other} two sides, we have
-\[a^2 + b^2 = c^2\]
-\end{theorem}
-
-Read more here \url{https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html}.
-
-\hypertarget{callout-blocks}{%
-\section{Callout blocks}\label{callout-blocks}}
-
-The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: \url{https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html}
+To introduce a return to the ligne, you need not only to type return in Markdown, but also to make the line followed by two spaces.
 
 \hypertarget{sharing-your-book}{%
 \chapter{Sharing your book}\label{sharing-your-book}}
