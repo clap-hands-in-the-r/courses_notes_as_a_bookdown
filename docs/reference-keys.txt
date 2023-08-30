@@ -6,6 +6,8 @@ learning-r
 about-stringr-package
 about-regex-in-r
 special-characters
+useful-packages-or-datasets
+useful-libraries
 learning-python
 learning-gitgithub
 footnotes-and-citations

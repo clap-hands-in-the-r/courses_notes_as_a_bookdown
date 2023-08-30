@@ -203,6 +203,12 @@ Most common and useful functions in Stringr :
   str\_replace()
 \item
   str\_replace\_all()
+\item
+  str\_split()
+\item
+  str\_trim()
+\item
+  str\_to\_lower()
 \end{itemize}
 
 \hypertarget{about-regex-in-r}{%
@@ -231,11 +237,124 @@ Most common and useful functions in Stringr :
   () () ``\textbackslash\textbackslash1'' capture le groupe de la parenthèse 1 et ``\textbackslash\textbackslash2'' capture le groupe de la parenthèse 2
 \end{itemize}
 
+Separate and extract function are from tidyr package.\\
+In \textbf{extract}, you can use regex to split a string.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\NormalTok{s }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"5\textquotesingle{}6"}\NormalTok{, }\StringTok{"6\textquotesingle{}4"}\NormalTok{)}
+\NormalTok{tab }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =}\NormalTok{ s)}
+
+\NormalTok{tab }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(x,}\FunctionTok{c}\NormalTok{(}\StringTok{"feet"}\NormalTok{,}\StringTok{"inches"}\NormalTok{),}\AttributeTok{sep=}\StringTok{"\textquotesingle{}"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   feet inches
+## 1    5      6
+## 2    6      4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{extract}\NormalTok{(x,}\FunctionTok{c}\NormalTok{(}\StringTok{"feet"}\NormalTok{,}\StringTok{"inches"}\NormalTok{), }\AttributeTok{regex =} \StringTok{"(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d)\textquotesingle{}(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d\{1,2\})"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   feet inches
+## 1    5      6
+## 2    6      4
+\end{verbatim}
+
+\hypertarget{useful-packages-or-datasets}{%
+\section{Useful packages or datasets}\label{useful-packages-or-datasets}}
+
+\begin{itemize}
+\tightlist
+\item
+  gapminder
+  library(gapminder)\\
+  data(``gapminder'')
+\end{itemize}
+
+\hypertarget{useful-libraries}{%
+\section{Useful libraries}\label{useful-libraries}}
+
+\begin{itemize}
+\tightlist
+\item
+  It maybe possible to extract a table from a pdf with pdftools\\
+  Not tested myself
+  library(``pdftools'')
+  temp\_file \textless- tempfile()
+  url \textless- ``\url{https://www.pnas.org/action/downloadSupplement?doi=10.1073\%2Fpnas.1510159112\&file=pnas.201510159SI.pdf}''
+  download.file(url, temp\_file)
+  txt \textless- pdf\_text(temp\_file)
+  file.remove(temp\_file)
+\end{itemize}
+
 \hypertarget{learning-python}{%
 \chapter{Learning Python}\label{learning-python}}
 
+\begin{itemize}
+\tightlist
+\item
+  shebang line
+  \#!/usr/bin/env python3
+\end{itemize}
+
 \hypertarget{learning-gitgithub}{%
 \chapter{Learning Git/Github}\label{learning-gitgithub}}
+
+\begin{itemize}
+\item
+  git config user.name ``my\_name''
+\item
+  git config user.email ``\href{mailto:me@example.com}{\nolinkurl{me@example.com}}''
+\item
+  git config -- global user.name ``my\_name''\\
+  -\textgreater{} set the value of the username for all git repos\\
+  whereas if ``git config'' without global you set it up for the current directory
+\item
+  git init -\textgreater{} when in the directory which you want to set under git control (initialize a new repo)
+\item
+  git add myfile -\textgreater{} stagge myfile (place it in the stagging area)
+\item
+  git commit -m ``my message for this commit''
+\item
+  git config -l
+\item
+  git status -\textgreater{} check current state
+\item
+  three status for tracked files : modified/stagged/commited
+\item
+  in order to vizualize all \textbf{the commits} (not all the modifications) which were made :\\
+  git log
+\end{itemize}
+
+Admit you modified a file readme.txt which is under version control.\\
+You can see the modifications since the previous version with this command line:\\
+git diff readme.txt
+
+\begin{itemize}
+\item
+  Add a file to .gitignore in order it is not tracked anymore(?)
+  echo 01-Learning-R.Rmd \textgreater{} .gitignore
+  echo .RData \textgreater\textgreater{} .gitignore
+  after modifying .gitignore you need to stagge (git add) and commit (git commit) it.
+\item
+  git commit -a -m `message for the commit'
+  when you want to commit only the modifications
+  (a is for only modified files / m is for message)
+\item
+  git rm filename\\
+  after this you must commit
+\item
+  git mv filename in order to move or rename a file
+\end{itemize}
 
 \hypertarget{footnotes-and-citations}{%
 \chapter{Footnotes and citations}\label{footnotes-and-citations}}
@@ -265,6 +384,9 @@ To write a list, you must write a star * followed by a coma a the beginning of a
 Before the list starts you need a blankline and same at the end of the list otherwise Mardown won't recognize it.
 
 To introduce a return to the ligne, you need not only to type return in Markdown, but also to make the line followed by two spaces.
+
+To make a few words bold you need to surrender it with two stars both sides.\\
+It is **bold** gives : It is \textbf{bold}
 
 \hypertarget{learning-linux-commands}{%
 \chapter{Learning linux commands}\label{learning-linux-commands}}
@@ -320,6 +442,16 @@ echo toto et titi \textgreater{} titi.txt
   function --help
   example: ls --help
 \item
+  Make a file executable:\\
+  chmod +x filename
+\item
+  Open a file with nano :\\
+  nano my\_file.txt
+\item
+  Save changes made to a file in nano:\\
+  ctrl+o + Enter + ctrl+x
+\item
+  `cd -' in order to come back to previous directory
 \end{itemize}
 
   \bibliography{book.bib,packages.bib}

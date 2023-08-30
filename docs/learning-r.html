@@ -181,6 +181,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="learning-r.html"><a href="learning-r.html#special-characters"><i class="fa fa-check"></i><b>2.2.1</b> Special characters</a></li>
 </ul></li>
+<li class="chapter" data-level="2.3" data-path="learning-r.html"><a href="learning-r.html#useful-packages-or-datasets"><i class="fa fa-check"></i><b>2.3</b> Useful packages or datasets</a></li>
+<li class="chapter" data-level="2.4" data-path="learning-r.html"><a href="learning-r.html#useful-libraries"><i class="fa fa-check"></i><b>2.4</b> Useful libraries</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="learning-python.html"><a href="learning-python.html"><i class="fa fa-check"></i><b>3</b> Learning Python</a></li>
 <li class="chapter" data-level="4" data-path="learning-gitgithub.html"><a href="learning-gitgithub.html"><i class="fa fa-check"></i><b>4</b> Learning Git/Github</a></li>
@@ -228,6 +230,9 @@ Stringr functions always begin with prefix <strong>str_</strong> ; the first arg
 <li>str_view_all()</li>
 <li>str_replace()</li>
 <li>str_replace_all()</li>
+<li>str_split()</li>
+<li>str_trim()</li>
+<li>str_to_lower()</li>
 </ul>
 </div>
 <div id="about-regex-in-r" class="section level2 hasAnchor" number="2.2">
@@ -244,8 +249,44 @@ Stringr functions always begin with prefix <strong>str_</strong> ; the first arg
 <li>The question mark “?” stands for <strong>0 or one</strong> instance of the previous character</li>
 <li>() () “\\1” capture le groupe de la parenthèse 1 et “\\2” capture le groupe de la parenthèse 2</li>
 </ul>
-
+<p>Separate and extract function are from tidyr package.<br />
+In <strong>extract</strong>, you can use regex to split a string.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="learning-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="learning-r.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-3"><a href="learning-r.html#cb3-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;5&#39;6&quot;</span>, <span class="st">&quot;6&#39;4&quot;</span>)</span>
+<span id="cb3-4"><a href="learning-r.html#cb3-4" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> s)</span>
+<span id="cb3-5"><a href="learning-r.html#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="learning-r.html#cb3-6" aria-hidden="true" tabindex="-1"></a>tab <span class="sc">%&gt;%</span> <span class="fu">separate</span>(x,<span class="fu">c</span>(<span class="st">&quot;feet&quot;</span>,<span class="st">&quot;inches&quot;</span>),<span class="at">sep=</span><span class="st">&quot;&#39;&quot;</span>)</span></code></pre></div>
+<pre><code>##   feet inches
+## 1    5      6
+## 2    6      4</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="learning-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a>tab <span class="sc">%&gt;%</span> <span class="fu">extract</span>(x,<span class="fu">c</span>(<span class="st">&quot;feet&quot;</span>,<span class="st">&quot;inches&quot;</span>), <span class="at">regex =</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">d)&#39;(</span><span class="sc">\\</span><span class="st">d{1,2})&quot;</span>)</span></code></pre></div>
+<pre><code>##   feet inches
+## 1    5      6
+## 2    6      4</code></pre>
 </div>
+</div>
+<div id="useful-packages-or-datasets" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Useful packages or datasets<a href="learning-r.html#useful-packages-or-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>gapminder
+library(gapminder)<br />
+data(“gapminder”)</li>
+</ul>
+</div>
+<div id="useful-libraries" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Useful libraries<a href="learning-r.html#useful-libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>It maybe possible to extract a table from a pdf with pdftools<br />
+Not tested myself
+library(“pdftools”)
+temp_file &lt;- tempfile()
+url &lt;- “<a href="https://www.pnas.org/action/downloadSupplement?doi=10.1073%2Fpnas.1510159112&amp;file=pnas.201510159SI.pdf" class="uri">https://www.pnas.org/action/downloadSupplement?doi=10.1073%2Fpnas.1510159112&amp;file=pnas.201510159SI.pdf</a>”
+download.file(url, temp_file)
+txt &lt;- pdf_text(temp_file)
+file.remove(temp_file)</li>
+</ul>
+
 </div>
 </div>
             </section>
