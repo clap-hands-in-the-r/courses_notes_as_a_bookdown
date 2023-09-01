@@ -3,9 +3,13 @@ usage
 render-book
 preview-book
 learning-r
+environment-configuration
+how-to-explore-a-data-frame
 about-stringr-package
 about-regex-in-r
 special-characters
+creating-samples
+about-dates
 useful-packages-or-datasets
 useful-libraries
 learning-python
@@ -15,3 +19,5 @@ footnotes
 citations
 learning-markdown
 learning-linux-commands
+statistics-with-r
+url-your-book-url-like-httpsbookdown.orgyihuibookdown

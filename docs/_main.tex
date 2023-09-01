@@ -117,7 +117,7 @@
 
 \title{A Minimal Book Example}
 \author{John Doe}
-\date{2023-08-30}
+\date{2023-09-01}
 
 \begin{document}
 \maketitle
@@ -180,6 +180,45 @@ As you work, you may start a local server to live preview this HTML book. This p
 This is notes about learning R.
 
 Please build this simple boook!!!!! ahhhhhhhhhhhhha
+
+\hypertarget{environment-configuration}{%
+\section{Environment configuration}\label{environment-configuration}}
+
+\begin{itemize}
+\item
+  install a package: install.packages(``tidyverse'')
+  Once a package installed you don't need to install it again
+\item
+  load a library
+  Once the package is installed, you need to ``load'' it in your current environment
+  libary(tidyverse)
+  It was a think that was disturbing me when starting R/
+  install.packages takes a double quote surrounding the package name\\
+  whereas library doesn't take double quote around the package name
+\item
+  options(digits =3) \# 3 significant digits
+\item
+  installing two or more packages at once with c():\\
+  install.packages(c(``tidytext'',``gutenbergr''))
+\item
+  question mark + name of the function to get the help of the function\\
+  It opens in the bottom right panel in most configurations of R Studio.
+  example : ?gutenberg\_metadata()
+\end{itemize}
+
+\hypertarget{how-to-explore-a-data-frame}{%
+\section{How to explore a data frame?}\label{how-to-explore-a-data-frame}}
+
+\begin{itemize}
+\tightlist
+\item
+  df \%\textgreater\% head()
+\item
+  df \%\textgreater\% tail()
+\end{itemize}
+
+In both cases, you can specify the number of rows at the top or at the bottom you want to see.\\
+For example head(3) or tail(3)
 
 \hypertarget{about-stringr-package}{%
 \section{About stringr package}\label{about-stringr-package}}
@@ -269,6 +308,17 @@ In \textbf{extract}, you can use regex to split a string.
 ## 2    6      4
 \end{verbatim}
 
+\hypertarget{creating-samples}{%
+\section{Creating samples}\label{creating-samples}}
+
+set.seed(1)
+sample()
+
+\hypertarget{about-dates}{%
+\section{About dates}\label{about-dates}}
+
+Sys.time() from base R returns current date/time.
+
 \hypertarget{useful-packages-or-datasets}{%
 \section{Useful packages or datasets}\label{useful-packages-or-datasets}}
 
@@ -333,13 +383,27 @@ In \textbf{extract}, you can use regex to split a string.
 \item
   in order to vizualize all \textbf{the commits} (not all the modifications) which were made :\\
   git log
-\end{itemize}
-
-Admit you modified a file readme.txt which is under version control.\\
-You can see the modifications since the previous version with this command line:\\
-git diff readme.txt
-
-\begin{itemize}
+\item
+  git add -p
+  a way to review changes before adding them
+  git will show us which files were not stagged and ask us if we want to commit
+\item
+  git log -p gives more informations in a viewer\\
+  the -p comes from patch
+  you can see differences line by line
+  you can quit the viewer typing q as with less viewer
+\item
+  git log --stat
+  extra info (how many lines you have added or remove)
+\item
+  git show `commit\_id'\\
+  git show takes a commit id as a parameter
+\item
+  git -stats
+\item
+  Admit you modified a file readme.txt which is under version control.\\
+  You can see the modifications since the previous version with this command line:\\
+  git diff readme.txt
 \item
   Add a file to .gitignore in order it is not tracked anymore(?)
   echo 01-Learning-R.Rmd \textgreater{} .gitignore
@@ -351,9 +415,20 @@ git diff readme.txt
   (a is for only modified files / m is for message)
 \item
   git rm filename\\
-  after this you must commit
+  after this you must commit in order the changes to be taken into account
 \item
-  git mv filename in order to move or rename a file
+  git mv filename in order to move or rename a file\\
+  git mv old\_name new\_name
+  after this need to commit
+\item
+  git checkout ``commit\_od''
+  roll back to a previous version
+\item
+  git diff -u
+\item
+  git diff only shows unstagged changes by default
+\item
+  git diff --stagged to see the changes that are staged but not commited
 \end{itemize}
 
 \hypertarget{footnotes-and-citations}{%
@@ -453,6 +528,48 @@ echo toto et titi \textgreater{} titi.txt
 \item
   `cd -' in order to come back to previous directory
 \end{itemize}
+
+\hypertarget{statistics-with-r}{%
+\chapter{Statistics with R}\label{statistics-with-r}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beads }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"blue"}\NormalTok{), }\AttributeTok{times =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\NormalTok{beads}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "red"  "red"  "blue" "blue" "blue"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# pick a bead at random}
+\FunctionTok{sample}\NormalTok{(beads,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "red"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B }\OtherTok{\textless{}{-}} \DecValTok{10000}
+
+\NormalTok{events }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(B,}\FunctionTok{sample}\NormalTok{(beads,}\DecValTok{1}\NormalTok{))}
+\NormalTok{tab }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(events)}
+\CommentTok{\# calculate probability of each events}
+\FunctionTok{prop.table}\NormalTok{(tab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## events
+##   blue    red 
+## 0.6078 0.3922
+\end{verbatim}
 
   \bibliography{book.bib,packages.bib}
 
