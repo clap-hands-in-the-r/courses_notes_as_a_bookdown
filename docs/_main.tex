@@ -117,7 +117,7 @@
 
 \title{A Minimal Book Example}
 \author{John Doe}
-\date{2023-09-01}
+\date{2023-09-06}
 
 \begin{document}
 \maketitle
@@ -205,6 +205,20 @@ Please build this simple boook!!!!! ahhhhhhhhhhhhha
   It opens in the bottom right panel in most configurations of R Studio.
   example : ?gutenberg\_metadata()
 \end{itemize}
+
+\hypertarget{basic-manipulations}{%
+\section{Basic manipulations}\label{basic-manipulations}}
+
+\begin{itemize}
+\tightlist
+\item
+  create a vector with rep (repeat)
+\end{itemize}
+
+my\_vec = rep(c(1,2), times = 7)
+or
+
+my\_vec2 = rep(c(1,2), times=c(3,8))
 
 \hypertarget{how-to-explore-a-data-frame}{%
 \section{How to explore a data frame?}\label{how-to-explore-a-data-frame}}
@@ -421,14 +435,22 @@ Sys.time() from base R returns current date/time.
   git mv old\_name new\_name
   after this need to commit
 \item
-  git checkout ``commit\_od''
-  roll back to a previous version
-\item
   git diff -u
 \item
   git diff only shows unstagged changes by default
 \item
   git diff --stagged to see the changes that are staged but not commited
+\item
+  git
+\item
+  git checkout ``commit\_id''
+  roll back to a previous version
+\item
+  git reset
+  remove from staging area
+\item
+  git commit --amend
+  to modify a commit
 \end{itemize}
 
 \hypertarget{footnotes-and-citations}{%
@@ -551,12 +573,30 @@ echo toto et titi \textgreater{} titi.txt
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "red"
+## [1] "blue"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# evaluate the probability of drawing a blue at random}
+\FunctionTok{mean}\NormalTok{(beads }\SpecialCharTok{==} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{B }\OtherTok{\textless{}{-}} \DecValTok{10000}
+
+\CommentTok{\# Nota : if you want the "same random" each time }
+\CommentTok{\# you draw the sample, you need to set a seed}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\CommentTok{\# for example}
+
+
 
 \NormalTok{events }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(B,}\FunctionTok{sample}\NormalTok{(beads,}\DecValTok{1}\NormalTok{))}
 \NormalTok{tab }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(events)}
@@ -568,8 +608,155 @@ echo toto et titi \textgreater{} titi.txt
 \begin{verbatim}
 ## events
 ##   blue    red 
-## 0.6078 0.3922
+## 0.6028 0.3972
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# note that with this monte carlo simulation we have }
+\CommentTok{\# quite the same probability for blue events as with}
+\CommentTok{\# mean(beads =="blue")}
+\end{Highlighting}
+\end{Shaded}
+
+by default, sample samples without replacement.
+it means, it you try
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sample}\NormalTok{(beads,}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "blue" "red"  "red"  "blue" "blue"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# it works, but if you try}
+\CommentTok{\# sample(beads,6)}
+\CommentTok{\# it fails because there are only 6 beads}
+\end{Highlighting}
+\end{Shaded}
+
+so sample by default is equivalent to
+sample(beads,5, replace = FALSE)
+but we can use sample \textbf{with} replacement.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# so this is working:}
+\FunctionTok{sample}\NormalTok{(beads,}\DecValTok{6}\NormalTok{,}\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "blue" "red"  "red"  "red"  "blue" "red"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# and we can use simply sample with replacement}
+\CommentTok{\# juste like with replicate}
+
+\NormalTok{events2 }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(beads,B, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{tab2 }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(events2)}
+\FunctionTok{prop.table}\NormalTok{(tab2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## events2
+##   blue    red 
+## 0.6026 0.3974
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# the result is almost the same}
+\end{Highlighting}
+\end{Shaded}
+
+discrete and continuous variables
+example:
+discrete : flip of a coin
+outcome from the roll of a die
+
+web site traffic on a given day \textgreater{} particular discrete variable (no upper bound \textgreater{} poisson)
+same for the number of people clicking on an add
+
+continuous :
+BMI (body mass index) of a subject four years after a baseline measurement
+hypertension status but could be modelled as discrete (1 hypertension/0 no hypertension)
+
+\begin{itemize}
+\item
+  probability mass function (pmf)
+  for discrete variable \textgreater{} assign a probability for each value they can take
+  1-must always be larger or equal to 0
+  (prob is number bet 0 abd 1)
+  2- the sum of the poss values has to add up to 1
+\item
+  examples of pmf :
+  binomial, canonical (flipping a cooin)
+\end{itemize}
+
+Bernouli = flip a coin
+X = 0 tails
+X = 1 represents heads
+
+Two broad flavors of inference :
+* frequency, which uses ``long run proportion of times an event occurs in \textbf{independent}, identically distributed repetitions''
+* he second is Bayesian in which the probability estimate for a hypothesis is updated as additional evidence is acquired
+
+\begin{itemize}
+\item
+  If A and B are two \textbf{independent} events then the probability of them both occurring is the product of the probabilities. P(A\&B) = P(A) * P(B)
+\item
+  Suppose you rolled the fair die twice. What is the probability of rolling the same number two times in a row? Since we don't care what the outcome of the first roll is, its probability is 1. The second roll of the dice has to match the outcome of the first, so that has a probability of 1/6. The probability of both events occurring is 1 * 1/6.
+\item
+  The probability of at least one of two events, A and B, occurring is the sum of their individual
+  probabilities minus the probability of their intersection. P(A U B) = P(A) + P(B) - P(A\&B).
+\end{itemize}
+
+\hypertarget{learning-shiny}{%
+\chapter{Learning Shiny}\label{learning-shiny}}
+
+library(shiny)
+
+\begin{itemize}
+\item
+  To have a look on which html tags are available in Shiny:
+  ?builder
+\item
+  Ctrl + U to see the html content of a web page \textgreater{} it opens the html code in a new page
+\item
+  Alt + s + w + s
+  or via the menu Session \textgreater{} setwdir \textgreater{} To source file loc
+\end{itemize}
+
+runApp()
+
+shinyUI()
+
+shinyServer()
+
+\hypertarget{learning-html}{%
+\chapter{Learning html}\label{learning-html}}
+
+Install visual studio and live server?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#\textless{}DOCTYPE! html\textgreater{}}
+\CommentTok{\#\textless{}html lang="en"\textgreater{}}
+
+
+\CommentTok{\#\textless{}\textbackslash{}html\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
 
   \bibliography{book.bib,packages.bib}
 

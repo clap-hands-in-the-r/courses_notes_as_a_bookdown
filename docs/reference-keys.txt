@@ -4,6 +4,7 @@ render-book
 preview-book
 learning-r
 environment-configuration
+basic-manipulations
 how-to-explore-a-data-frame
 about-stringr-package
 about-regex-in-r
@@ -20,4 +21,5 @@ citations
 learning-markdown
 learning-linux-commands
 statistics-with-r
-url-your-book-url-like-httpsbookdown.orgyihuibookdown
+learning-shiny
+learning-html
