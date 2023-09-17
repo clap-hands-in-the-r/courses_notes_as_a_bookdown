@@ -5,6 +5,7 @@ preview-book
 learning-r
 environment-configuration
 basic-manipulations
+more-advanced-manipulations
 how-to-explore-a-data-frame
 about-stringr-package
 about-regex-in-r
@@ -22,4 +23,14 @@ learning-markdown
 learning-linux-commands
 statistics-with-r
 learning-shiny
+outputs
+text
+tables
+plots
+basic-reactivity
+server-function
+input
+output
 learning-html
+sql-tips
+keyboard-shortcuts

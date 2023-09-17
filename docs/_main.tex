@@ -117,7 +117,7 @@
 
 \title{A Minimal Book Example}
 \author{John Doe}
-\date{2023-09-06}
+\date{2023-09-17}
 
 \begin{document}
 \maketitle
@@ -204,13 +204,29 @@ Please build this simple boook!!!!! ahhhhhhhhhhhhha
   question mark + name of the function to get the help of the function\\
   It opens in the bottom right panel in most configurations of R Studio.
   example : ?gutenberg\_metadata()
+\item
+  get the list of files in the current working directory
+  list.files()
+\item
+  get the path of the working directory
+  getwd()
+\item
+  set the path to the directory you want to be the working dir:
+  setwd(``C:/users/etc/'')
+  in Windows, files are displayed with backslashes \textbackslash{} whereas to indicate
+  a file to R, you need to replace backslashes with slashes
+\item
+  taper simplement \textbf{library()} :\\
+  nous donne la liste de nos packages disponibles
 \end{itemize}
 
 \hypertarget{basic-manipulations}{%
 \section{Basic manipulations}\label{basic-manipulations}}
 
 \begin{itemize}
-\tightlist
+\item
+  remove all objects from current environment:\\
+  rm(list=ls())
 \item
   create a vector with rep (repeat)
 \end{itemize}
@@ -220,11 +236,83 @@ or
 
 my\_vec2 = rep(c(1,2), times=c(3,8))
 
+\begin{itemize}
+\tightlist
+\item
+  print and cat
+\end{itemize}
+
+\begin{quote}
+cat(`hello')
+hello
+print(`hello')
+{[}1{]} ``hello''
+\end{quote}
+
+\begin{itemize}
+\item
+  Display a field with two or three\ldots{} digits:\\
+  format(x, nsmall =2)
+  example
+  df \%\textgreater\% group\_by(mois) \%\textgreater\% summarise(format(sum(resultats),nsmall=2))
+\item
+  save a data frame in Rda format :\\
+  save(my\_df, file = ``df\_xxx\_xxx.Rda'')
+\item
+  load a data frame you previously saved in Rda format :\\
+  load(file = ``df\_xxx\_xxx.Rda'')
+\item
+  see built-ins datasets t :\\
+  ls(``package:datasets'')
+\item
+  give name to each field of a vector or dataframe:
+  setNames(vec,c(`titi',`toto',`tata'))
+  setNames(df,c(`titi',`toto',`tata'))
+\item
+  pull()
+  pull() is similar to \$ . It's mostly useful because it looks a little nicer in pipes, it also works with remote data frames, and it can optionally name the output.
+  data \textless- data.frame(x1 = 1:5, x1=LETTERS{[}1:5{]})
+  data \textless- setNames(data,c(``c1'',``c2''))
+\end{itemize}
+
+pull(data,c1) \# apply function with column name (extraire le vecteur c1 du dataframe)
+pull(data,c2)
+
+pull(data,1) \# apply function with index
+
+pull returns a vector
+
+\hypertarget{more-advanced-manipulations}{%
+\section{More advanced manipulations}\label{more-advanced-manipulations}}
+
+\begin{itemize}
+\item
+  Replace Na's:\\
+\item
+  one first solution :\\
+  df \%\textgreater\% filter(code\_rub \%in\% rub\_departs) \%\textgreater\%
+  group\_by(code\_rub,RUB\_AXE\_ANA\_ME,annee) \%\textgreater\% summarise(mtt = sum(resultats)) \%\textgreater\%
+  pivot\_wider(names\_from=annee,values\_from=mtt) \%\textgreater\% \textbf{mutate\_if(is.numeric, \textasciitilde replace\_na(.,0)) \%\textgreater\%}
+\item
+  one second solution :
+  df \%\textgreater\% \textbf{mutate\_all(.,\textasciitilde replace(.,is.na(.),0))}
+\item
+  Add totals at the bottom of a data frame :\\
+  this is one of the most painful task in R, whereas it seems completely obvious in R for example.
+  why? cause, dataframes are mostly data structures. They are not done to display datas.
+  however, package janitor helps doing this task very easily (thank you!)
+  library(janitor)
+  df \%\textgreater\% adorn\_totals(fill='' ``)
+  fill arguments allow to chose what will be displayed when the column is not numbers
+\end{itemize}
+
 \hypertarget{how-to-explore-a-data-frame}{%
 \section{How to explore a data frame?}\label{how-to-explore-a-data-frame}}
 
 \begin{itemize}
-\tightlist
+\item
+  check the type of a field with \textbf{class}\\
+  class(df\$mois) -\textgreater{} date
 \item
   df \%\textgreater\% head()
 \item
@@ -233,6 +321,19 @@ my\_vec2 = rep(c(1,2), times=c(3,8))
 
 In both cases, you can specify the number of rows at the top or at the bottom you want to see.\\
 For example head(3) or tail(3)
+
+Unique values of a field. Two techniques :
+* df \%\textgreater\% distinct(mois)
+* unique(df\$mois)
+The two solutions give the same results. The only difference is that the first solution returns a data frame whereas the second returns a vector.
+
+\begin{itemize}
+\tightlist
+\item
+  Display all rows from a dataframe in dplyr:\\
+  with pipe print \%\textgreater\% print(n=nrow(.))
+  df \%\textgreater\% filter(mois==`2023-06-01') \%\textgreater\% group\_by(code\_rub) \%\textgreater\% summarise(format(sum(resultats),nsmall=2)) \%\textgreater\% print(n = nrow(.))
+\end{itemize}
 
 \hypertarget{about-stringr-package}{%
 \section{About stringr package}\label{about-stringr-package}}
@@ -331,24 +432,36 @@ sample()
 \hypertarget{about-dates}{%
 \section{About dates}\label{about-dates}}
 
-Sys.time() from base R returns current date/time.
+\begin{itemize}
+\item
+  Sys.time() from base R returns current date/time.
+\item
+  Extract year of date (with the field already of type date)\\
+  with function year from lubridate
+  library(lubridate)\\
+  df \textless- df \%\textgreater\% mutate(annee=year(mois))
+\end{itemize}
 
 \hypertarget{useful-packages-or-datasets}{%
 \section{Useful packages or datasets}\label{useful-packages-or-datasets}}
 
 \begin{itemize}
-\tightlist
 \item
   gapminder
   library(gapminder)\\
   data(``gapminder'')
+\item
+  tidyr :
+  pivot\_wider and pivot\_longer are from tidyverse (tidyr)
 \end{itemize}
 
 \hypertarget{useful-libraries}{%
 \section{Useful libraries}\label{useful-libraries}}
 
 \begin{itemize}
-\tightlist
+\item
+  recomandation of HWickham:
+  In shiny, If you want greater control over the output of dataTableOutput(), I highly recommend the reactable package by Greg Lin.
 \item
   It maybe possible to extract a table from a pdf with pdftools\\
   Not tested myself
@@ -425,7 +538,7 @@ Sys.time() from base R returns current date/time.
   after modifying .gitignore you need to stagge (git add) and commit (git commit) it.
 \item
   git commit -a -m `message for the commit'
-  when you want to commit only the modifications
+  when you want to commit only the modifications \textbf{super useful}
   (a is for only modified files / m is for message)
 \item
   git rm filename\\
@@ -549,6 +662,9 @@ echo toto et titi \textgreater{} titi.txt
   ctrl+o + Enter + ctrl+x
 \item
   `cd -' in order to come back to previous directory
+\item
+  set a file in executable mode
+  chmod +x file\_name
 \end{itemize}
 
 \hypertarget{statistics-with-r}{%
@@ -727,6 +843,10 @@ library(shiny)
 
 \begin{itemize}
 \item
+  run shinyapp shortcut:\\
+  ctrl + shift + enter
+  not ctrl + shift + K (this is to knit Rmarkdown's documents)
+\item
   To have a look on which html tags are available in Shiny:
   ?builder
 \item
@@ -741,6 +861,117 @@ runApp()
 shinyUI()
 
 shinyServer()
+
+\hypertarget{outputs}{%
+\section{outputs}\label{outputs}}
+
+\hypertarget{text}{%
+\subsection{Text}\label{text}}
+
+\begin{itemize}
+\item
+  renderText() combines the result into a single string, and is usually paired with textOutput()
+\item
+  renderPrint() prints the result, as if you were in an R console, and is usually paired with verbatimTextOutput()
+\end{itemize}
+
+\hypertarget{tables}{%
+\subsection{Tables}\label{tables}}
+
+tableOutput() and renderTable() render a static table of data, showing all the data at once.
+
+dataTableOutput() and renderDataTable() render a dynamic table, showing a fixed number of rows along with controls to change which rows are visible.
+
+\hypertarget{plots}{%
+\subsection{Plots}\label{plots}}
+
+You can display any type of R graphic (base, ggplot2, or otherwise) with plotOutput() and renderPlot()
+
+\hypertarget{basic-reactivity}{%
+\section{Basic reactivity}\label{basic-reactivity}}
+
+\hypertarget{server-function}{%
+\subsection{Server function}\label{server-function}}
+
+\hypertarget{input}{%
+\subsubsection{Input}\label{input}}
+
+It must be a simple string that contains only letters, numbers, and underscores (no spaces, dashes, periods, or other special characters allowed!). Name it like you would name a variable in R.
+
+It must be unique. If it's not unique, you'll have no way to refer to this control in your server function!
+
+Most input functions have a second parameter called label. This is used to create a human-readable label for the control. Shiny doesn't place any restrictions on this string, but you'll need to carefully think about it to make sure that your app is usable by humans! The third parameter is typically value, which, where possible, lets you set the default value. The remaining parameters are unique to the control
+
+sliderInput(): If you supply a length-2 numeric vector for the default value of sliderInput(), you get a ``range'' slider with two ends.
+exemple : sliderInput(``rng'', ``Range'', value = c(10, 20), min = 0, max = 100)
+
+Unlike a typical list, input objects are read-only. If you attempt to modify an input inside the server function, you'll get an error.
+
+To read from an input, you must be in a reactive context created by a function like renderText() or reactive()
+
+\hypertarget{output}{%
+\subsubsection{Output}\label{output}}
+
+You always use the output object in concert with a render function, as in the following simple example.
+
+Link toward vers Mastering shiny from Hadley Wickham
+
+Each \textbf{render\{Type\} }function is designed to produce a particular type of output (e.g.~text, tables, and plots), and is \emph{often paired} with a \textbf{\{type\}Output} function. For example, in this app, renderPrint() is paired with verbatimTextOutput() to display a statistical summary with fixed-width (verbatim) text, and renderTable() is paired with tableOutput() to show the input data in a table.
+
+server ui
+textInput
+selectInput
+sliderInput
+passwordInput
+textAreaInput
+numericInput
+dateInput
+dateRangeInput
+radioButtons
+checkboxGroupInput
+fileInput
+actionButton
+
+renderPrint() verbatimTextOutput()
+renderTable() tableOutput()
+renderDataTable() dataTableOutput()
+renderPlot(,res = 96) plotOutput()\\
+renderText() textOutput()
+
+output\(name xxxOutput("name") input\)id\_selected selectInput(``id\_selected'', label)
+
+exemple of radioButton
+animals \textless- c(``dog'', ``cat'', ``mouse'', ``bird'', ``other'', ``I hate animals'')
+radioButtons(``animal'', ``What's your favourite animal?'', animals)
+
+Allow the user to select multiple elements
+selectInput(
+``state'', ``What's your favourite state?'', state.name,
+multiple = TRUE)
+
+There's no way to select multiple values with radio buttons, but there's an alternative that's conceptually similar: checkboxGroupInput().
+
+ui \textless- fluidPage(
+checkboxGroupInput(``animal'', ``What animals do you like?'', animals)
+)
+
+You create a reactive expression by wrapping a block of code in reactive(\{\ldots\}) and assigning it to a variable, and you use a reactive expression by calling it \textbf{like a function} that is the name of the reactive expression we created followed by parentheses.
+Note that the \{\} are only required in render functions if need to run multiple lines of code. As you'll learn shortly, you should do as little computation in your render functions as possible, which means you can often omit them
+
+To create a reactive expression, we call reactive() and assign the results to a variable. To later use the expression, we call the variable like it's a function.
+
+exemple:\\
+server \textless- function(input, output, session) \{
+x1 \textless- reactive(rnorm(input\(n1, input\)mean1, input\$sd1))
+
+Most simple exemple of reactive expression:\\
+server \textless- function(input, output, session) \{
+string \textless- reactive(paste0(``Hello'', input\(name, "!"))  output\)greeting \textless- renderText(string())
+\}
+
+Just like any other R function, when the server function is called it creates a new local environment that is independent of every other invocation of the function. This allows each session to have a unique state, as well as isolating the variables created inside the function.
+
+the order in which reactive code is run is determined only by the reactive graph, not by its layout in the server function.
 
 \hypertarget{learning-html}{%
 \chapter{Learning html}\label{learning-html}}
@@ -757,6 +988,261 @@ Install visual studio and live server?
 \end{Highlighting}
 \end{Shaded}
 
+ctr + u to see the content of a web page
+
+form tag includes input tag(s)
+form as actions such as action or method
+input is a self closing tag
+input can take many attributes such as value placeholder, readonly required name max min
+
+pour valider le code :
+\url{https://validator.w3.org/}
+
+pour valider l'accessibilité :
+swave mais uniquement avec une url publiée\ldots{}
+
+tag is for metadata
+
+section of the page that links to other pages or to parts within the page
+
+exemples
+
+\begin{verbatim}
+    <input  type ="text" placeholder="ceci est mon exemple"/>
+
+</form>
+\end{verbatim}
+
+\begin{verbatim}
+    <input  type ="text" value="valeur_ini"/>
+        <input type="date":>
+
+    </form>
+</main>
+<footer>
+
+</footer>
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  tag img
+\end{itemize}
+
+\&copy to display copyright
+\&gt greater than
+\&lt less than
+\&nbsp to display blank space
+\&amp display le ésperluette
+
+\begin{itemize}
+\item
+  tag is for informations at the bottom of the page:
+  warning footer doesn't place the information at the bottom
+  copyrights
+  links to social medias
+  related documents
+\item
+  more semantics than
+\end{itemize}
+
+Second page
+or Second page
+or link to a different location in the page (link with an ID)
+History section
+
+leads to
+
+\hypertarget{history}{}
+
+the image is the link
+
+blabla to open the link into a new tab
+
+.ext et on vient coller \#t= 5,25 \textgreater{} joue la vidéo ou l'audio de la seconde 5 à la seconde 25
+
+\begin{itemize}
+\tightlist
+\item
+  css
+\end{itemize}
+
+h1 \{color:\}
+selector property colon value of the property
+
+\begin{itemize}
+\item
+  element selectors
+  apply style to all similar elements
+  eg to
+
+  paragraphs
+\item
+  class selectors
+  apply style to all elements with a specific class
+\item
+  id selectors
+  apply style to single elements through the id association
+\item
+  attribute selectors
+  applys styles to elements with a specific attribute
+  such as all the anchors tags wich have the target attribute
+\end{itemize}
+
+exemples:
+
+\begin{itemize}
+\tightlist
+\item
+  simple selectors
+\item
+  tag selectors
+\end{itemize}
+
+\begin{itemize}
+\tightlist
+\item
+  class selectors (class = a group of elements)
+\end{itemize}
+
+.redBackground \{
+background-color : red
+\}
+
+\begin{itemize}
+\tightlist
+\item
+  id selectors
+  match a single element with a special ID attribute
+  (each and every html element has a unique id)
+\end{itemize}
+
+This is third h1
+
+\begin{itemize}
+\tightlist
+\item
+  universal selector
+  will math all elements in the page
+\end{itemize}
+
+\begin{itemize}
+\item
+  CSS combined selectors also called combinators
+\item
+  descendant selector
+\end{itemize}
+
+\begin{itemize}
+\tightlist
+\item
+  child selector
+  apply only to \textbf{direct children} not to all descendants
+
+  parent \textgreater{} child \{
+  color:blue;
+  \}
+\end{itemize}
+
+div \textgreater{} h1 \{
+color:red;
+\}
+s'applique seulement aux h1 directement sous un div. S'il y a un tag intermédiaire (notion de dépendant), ça ne s'appliquera pas.
+
+\begin{itemize}
+\tightlist
+\item
+  adjacent sibling selector :
+
+  h1 + h2 \{
+  color:blue;
+  \}
+\end{itemize}
+
+\begin{itemize}
+\item
+  general sibling selector :
+  h1 \textasciitilde{} h2 \{
+  color:blue;
+  \}
+\item
+  pseudo class selectors :
+  target specific elements based on their current states such as hovered, click\ldots{}
+\item
+  :hover pseudo class used to style an element when the user hovers over it with a mouse
+  example
+  Click me
+\end{itemize}
+
+\begin{itemize}
+\tightlist
+\item
+  :activate
+  when a button is clicked
+\end{itemize}
+
+Click me
+
+\begin{itemize}
+\tightlist
+\item
+  :visited
+  when a link had been visited
+\end{itemize}
+
+Click here
+
+\begin{itemize}
+\tightlist
+\item
+  :focus
+\end{itemize}
+
+\begin{itemize}
+\item
+  :nth-child
+  to select elements based on their position in the parent element
+
+  Apply the style only on the first paragraph
+\item
+  :nth-child(2n) : apply only to even elements
+\item
+  :nth-child(2n+1) : apply only to odd elements
+\item
+  :nth-child(odd) works to
+\item
+  :nth-child(even)
+\item
+  :first-child
+  to select the first child element of a parent
+\item
+  :last-child
+  to select the last child element of a parent
+\end{itemize}
+
+reprendre à pseudo elements après pseudo class selectors part 2
+
+\hypertarget{sql-tips}{%
+\chapter{SQL tips}\label{sql-tips}}
+
+\begin{itemize}
+\tightlist
+\item
+  modify a database entry according to criterion
+\end{itemize}
+
+UPDATE ``anapaie\_rub\_6411\_silae'' SET ``compte'' = `64110000'
+WHERE ``code\_etb'' = `6001' AND ``code\_rub'' IN (`I03',`I04')
+
+\hypertarget{keyboard-shortcuts}{%
+\chapter{Keyboard shortcuts}\label{keyboard-shortcuts}}
+
+\begin{itemize}
+\tightlist
+\item
+  F12 = save as in MS Office
+\end{itemize}
 
   \bibliography{book.bib,packages.bib}
 
