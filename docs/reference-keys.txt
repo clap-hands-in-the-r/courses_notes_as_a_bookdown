@@ -32,5 +32,4 @@ server-function
 input
 output
 learning-html
-sql-tips
 keyboard-shortcuts
