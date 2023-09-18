@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Learning html | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Learning html | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Learning html | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="John Doe" />
+
+
+<meta name="date" content="2023-09-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="learning-shiny.html"/>
+<link rel="next" href="sql-tips.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="learning-r.html"><a href="learning-r.html"><i class="fa fa-check"></i><b>2</b> Learning R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="learning-r.html"><a href="learning-r.html#environment-configuration"><i class="fa fa-check"></i><b>2.1</b> Environment configuration</a></li>
+<li class="chapter" data-level="2.2" data-path="learning-r.html"><a href="learning-r.html#basic-manipulations"><i class="fa fa-check"></i><b>2.2</b> Basic manipulations</a></li>
+<li class="chapter" data-level="2.3" data-path="learning-r.html"><a href="learning-r.html#more-advanced-manipulations"><i class="fa fa-check"></i><b>2.3</b> More advanced manipulations</a></li>
+<li class="chapter" data-level="2.4" data-path="learning-r.html"><a href="learning-r.html#how-to-explore-a-data-frame"><i class="fa fa-check"></i><b>2.4</b> How to explore a data frame?</a></li>
+<li class="chapter" data-level="2.5" data-path="learning-r.html"><a href="learning-r.html#about-stringr-package"><i class="fa fa-check"></i><b>2.5</b> About stringr package</a></li>
+<li class="chapter" data-level="2.6" data-path="learning-r.html"><a href="learning-r.html#about-regex-in-r"><i class="fa fa-check"></i><b>2.6</b> About Regex in R</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="learning-r.html"><a href="learning-r.html#special-characters"><i class="fa fa-check"></i><b>2.6.1</b> Special characters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="learning-r.html"><a href="learning-r.html#creating-samples"><i class="fa fa-check"></i><b>2.7</b> Creating samples</a></li>
+<li class="chapter" data-level="2.8" data-path="learning-r.html"><a href="learning-r.html#about-dates"><i class="fa fa-check"></i><b>2.8</b> About dates</a></li>
+<li class="chapter" data-level="2.9" data-path="learning-r.html"><a href="learning-r.html#useful-packages-or-datasets"><i class="fa fa-check"></i><b>2.9</b> Useful packages or datasets</a></li>
+<li class="chapter" data-level="2.10" data-path="learning-r.html"><a href="learning-r.html#useful-libraries"><i class="fa fa-check"></i><b>2.10</b> Useful libraries</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="learning-python.html"><a href="learning-python.html"><i class="fa fa-check"></i><b>3</b> Learning Python</a></li>
+<li class="chapter" data-level="4" data-path="learning-gitgithub.html"><a href="learning-gitgithub.html"><i class="fa fa-check"></i><b>4</b> Learning Git/Github</a></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="learning-markdown.html"><a href="learning-markdown.html"><i class="fa fa-check"></i><b>6</b> Learning Markdown</a></li>
+<li class="chapter" data-level="7" data-path="learning-linux-commands.html"><a href="learning-linux-commands.html"><i class="fa fa-check"></i><b>7</b> Learning linux commands</a></li>
+<li class="chapter" data-level="8" data-path="statistics-with-r.html"><a href="statistics-with-r.html"><i class="fa fa-check"></i><b>8</b> Statistics with R</a></li>
+<li class="chapter" data-level="9" data-path="learning-shiny.html"><a href="learning-shiny.html"><i class="fa fa-check"></i><b>9</b> Learning Shiny</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="learning-shiny.html"><a href="learning-shiny.html#outputs"><i class="fa fa-check"></i><b>9.1</b> outputs</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="learning-shiny.html"><a href="learning-shiny.html#text"><i class="fa fa-check"></i><b>9.1.1</b> Text</a></li>
+<li class="chapter" data-level="9.1.2" data-path="learning-shiny.html"><a href="learning-shiny.html#tables"><i class="fa fa-check"></i><b>9.1.2</b> Tables</a></li>
+<li class="chapter" data-level="9.1.3" data-path="learning-shiny.html"><a href="learning-shiny.html#plots"><i class="fa fa-check"></i><b>9.1.3</b> Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="learning-shiny.html"><a href="learning-shiny.html#basic-reactivity"><i class="fa fa-check"></i><b>9.2</b> Basic reactivity</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="learning-shiny.html"><a href="learning-shiny.html#server-function"><i class="fa fa-check"></i><b>9.2.1</b> Server function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="learning-html.html"><a href="learning-html.html"><i class="fa fa-check"></i><b>10</b> Learning html</a></li>
+<li class="chapter" data-level="11" data-path="sql-tips.html"><a href="sql-tips.html"><i class="fa fa-check"></i><b>11</b> SQL tips</a></li>
+<li class="chapter" data-level="12" data-path="keyboard-shortcuts.html"><a href="keyboard-shortcuts.html"><i class="fa fa-check"></i><b>12</b> Keyboard shortcuts</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="learning-html" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Learning html<a href="learning-html.html#learning-html" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Install visual studio and live server?</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="learning-html.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;DOCTYPE! html&gt;</span></span>
+<span id="cb24-2"><a href="learning-html.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;html lang=&quot;en&quot;&gt;</span></span>
+<span id="cb24-3"><a href="learning-html.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="learning-html.html#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="learning-html.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;\html&gt;</span></span></code></pre></div>
+<p>ctr + u to see the content of a web page</p>
+<p>form tag includes input tag(s)
+form as actions such as action or method
+input is a self closing tag
+input can take many attributes such as value placeholder, readonly required name max min</p>
+<p>pour valider le code :
+<a href="https://validator.w3.org/" class="uri">https://validator.w3.org/</a></p>
+<p>pour valider l’accessibilité :
+swave mais uniquement avec une url publiée…</p>
+<head>
+tag is for metadata
+<nav>
+<nav/>
+<p>section of the page that links to other pages or to parts within the page</p>
+<p>exemples</p>
+<body>
+<form action="" method="">
+<pre><code>    &lt;input  type =&quot;text&quot; placeholder=&quot;ceci est mon exemple&quot;/&gt;
+
+&lt;/form&gt;</code></pre>
+</body>
+<body>
+<main>
+<form action="" method="">
+<pre><code>    &lt;input  type =&quot;text&quot; value=&quot;valeur_ini&quot;/&gt;
+        &lt;input type=&quot;date&quot;:&gt;
+
+    &lt;/form&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+
+&lt;/footer&gt;</code></pre>
+</body>
+<ul>
+<li>tag img
+<img src="" alt="description" title="displays on hover" /></li>
+</ul>
+<p>&amp;copy to display copyright
+&amp;gt greater than
+&amp;lt less than
+&amp;nbsp to display blank space
+&amp;amp display le ésperluette</p>
+<ul>
+<li><footer>
+<p>tag is for informations at the bottom of the page:
+warning footer doesn’t place the information at the bottom
+copyrights
+links to social medias
+related documents</p></li>
+<li><figure>
+<p>more semantics than <img></p></li>
+</ul>
+<p><a href="page2.html">Second page</a>
+or <a href="docs/page2.html">Second page</a>
+or link to a different location in the page (link with an ID)
+<a href="learning-html.html#history">History section</a></p>
+leads to
+<div id="history">
+
+</div>
+<p>the image is the link
+<a href="http://www.redcross.org">
+<img src="imgs/redcross-logo.png"
+    alt = "Red Cross logo"/></a></p>
+<p><a href="http://blablabla...." target="_blank"> blabla </a> to open the link into a new tab</p>
+<audio>
+.ext et on vient coller #t= 5,25 &gt; joue la vidéo ou l’audio de la seconde 5 à la seconde 25
+</audio>
+<ul>
+<li>css</li>
+</ul>
+<p>h1 {color:}
+selector property colon value of the property</p>
+<ul>
+<li><p>element selectors
+apply style to all similar elements
+eg to</p>
+<p>
+<p>paragraphs</p></li>
+<li><p>class selectors
+apply style to all elements with a specific class</p></li>
+<li><p>id selectors
+apply style to single elements through the id association</p></li>
+<li><p>attribute selectors
+applys styles to elements with a specific attribute
+such as all the anchors tags wich have the target attribute</p></li>
+</ul>
+exemples:
+<head>
+<style>
+
+    h1 {
+        background-color: blue;
+    }
+</style>
+</head>
+<ul>
+<li>simple selectors</li>
+<li>tag selectors</li>
+</ul>
+<style>
+
+    h1 {
+        background-color: blue;
+    }
+</style>
+<style>
+
+    body {
+        background-color: blue;
+    }
+</style>
+<ul>
+<li>class selectors (class = a group of elements)</li>
+</ul>
+<style>
+<p>.redBackground {
+background-color : red
+}</p>
+<body>
+<h2 class="redBackground">
+</h2>
+</body>
+<ul>
+<li>id selectors
+match a single element with a special ID attribute
+(each and every html element has a unique id)</li>
+</ul>
+<h1 id="changeColor">
+This is third h1
+</h1>
+<style>
+
+    #changeColor {
+        color: white;
+    }
+</style>
+<ul>
+<li>universal selector
+will math all elements in the page</li>
+</ul>
+<style>
+    * {
+    color : brown;
+    }
+
+</style>
+<ul>
+<li><p>CSS combined selectors also called combinators</p></li>
+<li><p>descendant selector</p></li>
+</ul>
+<style>
+    parent child {
+    
+    }
+    div h1 {
+    color:blue;
+    }
+applies to each h1 enclosed in div     
+    
+</style>
+<ul>
+<li>child selector
+apply only to <strong>direct children</strong> not to all descendants
+<style>
+parent &gt; child {
+color:blue;
+}</li>
+</ul>
+</style>
+<style>
+<p>div &gt; h1 {
+color:red;
+}
+s’applique seulement aux h1 directement sous un div. S’il y a un tag intermédiaire (notion de dépendant), ça ne s’appliquera pas.</p>
+<ul>
+<li>adjacent sibling selector :
+<style>
+h1 + h2 {
+color:blue;
+}</li>
+</ul>
+</style>
+<ul>
+<li><p>general sibling selector :
+h1 ~ h2 {
+color:blue;
+}</p></li>
+<li><p>pseudo class selectors :
+target specific elements based on their current states such as hovered, click…</p></li>
+<li><p>:hover pseudo class used to style an element when the user hovers over it with a mouse
+example
+<button> Click me </button></p></li>
+</ul>
+<style> 
+    button:hover {
+        background-color:red;
+}
+</style>
+<ul>
+<li>:activate
+when a button is clicked
+<style>
+  button:activate{
+
+  }
+</style></li>
+</ul>
+<button>
+Click me
+</button>
+<ul>
+<li>:visited
+when a link had been visited</li>
+</ul>
+<p><a href="####"> Click here </a></p>
+<style>
+    a:visited {
+    color:green;
+    }
+</style>
+<ul>
+<li>:focus</li>
+</ul>
+<p><input type="text" /></p>
+<style>
+    input:focus {
+    background-color:yellow;
+    color:green;
+    }
+</style>
+<ul>
+<li><p>:nth-child
+to select elements based on their position in the parent element</p>
+<style>
+  p:nth-child(1) {
+      background:red;
+  }
+</style>
+<p>Apply the style only on the first paragraph</p></li>
+<li><p>:nth-child(2n) : apply only to even elements</p></li>
+<li><p>:nth-child(2n+1) : apply only to odd elements</p></li>
+<li><p>:nth-child(odd) works to</p></li>
+<li><p>:nth-child(even)</p></li>
+<li><p>:first-child
+to select the first child element of a parent</p></li>
+<li><p>:last-child
+to select the last child element of a parent</p></li>
+</ul>
+<p>reprendre à pseudo elements après pseudo class selectors part 2</p>
+<ul>
+<li><p>pseudo elements
+to style specified parts of an element
+you must include it inside your tag
+eg first letter of a paragraph
+denoted by two semi-colons</p></li>
+<li><p>::before</p>
+<style>
+  p:before {
+      content:'';
+      display:block; # ou inline-block
+      width: 20px;
+      height: 20px;
+      background-colors: green;
+      border: none;
+      border-radius:50px;
+
+  }
+</style></li>
+</ul>
+<body>
+<p>
+::before
+</p>
+</body>
+<ul>
+<li><p>::after</p></li>
+<li><p>::first-ligne</p></li>
+<li><p>attribute selectors
+style elements based on the presence or the value of their attributes
+denoted by square brackets
+in combination with other selectors</p></li>
+<li><p>example:</p>
+<style>
+  a[href^="http"] {
+  background-color:red;
+  }
+</style>
+<body>
+<p><a href="#internal1"> Internal1 </a>
+<a href="https:google.com"> Google </a></p>
+</body></li>
+<li><p>example:
+<input type="text" >
+<input type="email">
+<input type="password">
+<input type="number">
+<input type="phone"></p></li>
+</ul>
+<style>
+    input[type="email"] {
+        
+    }
+</style>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="learning-shiny.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sql-tips.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-Learning-html.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
