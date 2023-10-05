@@ -117,7 +117,7 @@
 
 \title{A Minimal Book Example}
 \author{John Doe}
-\date{2023-09-18}
+\date{2023-10-05}
 
 \begin{document}
 \maketitle
@@ -218,6 +218,25 @@ Please build this simple boook!!!!! ahhhhhhhhhhhhha
 \item
   taper simplement \textbf{library()} :\\
   nous donne la liste de nos packages disponibles
+\item
+  to get all the packages installed in our pc:
+  installed.packages()
+  may be important when changing version of R or Rstudio (wip)
+\item
+  data() to list all the datasets available in base R
+  in base R datasets available are stored in package datasets!
+  Use `data(package = .packages(all.available = TRUE))'
+  to list the data sets in all \emph{available} packages.
+\item
+  to discover which datasets are available ih a specifiq package
+  data(package=``HistData'')
+  or data(package = ``Lahman'')
+\item
+  to understand what is currently in your environment
+  search()
+\item
+  check your R version
+  R.Version()
 \end{itemize}
 
 \hypertarget{basic-manipulations}{%
@@ -227,6 +246,10 @@ Please build this simple boook!!!!! ahhhhhhhhhhhhha
 \item
   remove all objects from current environment:\\
   rm(list=ls())
+\item
+  create a sequence
+  seq(1,100) sequence from one to one hundred with a default step of one
+  seq(1,100,2) idem with step 2
 \item
   create a vector with rep (repeat)
 \end{itemize}
@@ -282,6 +305,71 @@ pull(data,1) \# apply function with index
 
 pull returns a vector
 
+\begin{itemize}
+\tightlist
+\item
+  sort, order and rank
+  use sort to sort the vector ascending
+  use order to return the index (position) that sorts input vector that is in which position we would need to reposition the elements to make them ordered
+  use rank to obtain the rank of each element in the vector if sorted
+\end{itemize}
+
+my\_letters \textless- c(``A'',``G'',``C'',``D'')
+sort(my\_letters)
+order(my\_letters)
+rank(my\_letters)
+
+sort\_index \textless- order(my\_letters)
+my\_letters{[}sort\_index{]}
+
+\begin{itemize}
+\tightlist
+\item
+  min, max and which.min and which.max
+\end{itemize}
+
+set.seed(1)
+you need to set.seed each time you launch the creation
+of the vector again if you want to obtain the same sequence
+my\_numbers \textless- round(runif(n=6,min=0,max=100),digits = 0)
+which.max(my\_numbers)
+which.max return the indices of the max
+so
+my\_numbers{[}which.max(my\_numbers){]}
+returns the max
+just like
+
+max(my\_numbers)
+
+\begin{itemize}
+\item
+  which
+  ind \textless- which(murders\$state == ``California'')
+  murder\_rate{[}ind{]}
+  \#\textgreater{} {[}1{]} 3.37
+\item
+  match
+  ind \textless- match(c(``New York'', ``Florida'', ``Texas''), murders\$state)
+  ind
+  \#\textgreater{} {[}1{]} 33 10 44
+  murder\_rate{[}ind{]}
+  \#\textgreater{} {[}1{]} 2.67 3.40 3.20
+\end{itemize}
+
+match returns indices
+instead we could also use a logical vector
+
+\begin{itemize}
+\item
+  \%in\%
+  c(``Boston'', ``Dakota'', ``Washington'') \%in\% murders\$state
+  \#\textgreater{} {[}1{]} FALSE FALSE TRUE
+\item
+  Are two objects identical?
+  identical(vect1,vect2)
+  returns TRUE if vect1 and vect2 are identical; FALSE otherwise
+\end{itemize}
+
 \hypertarget{more-advanced-manipulations}{%
 \section{More advanced manipulations}\label{more-advanced-manipulations}}
 
@@ -304,6 +392,10 @@ pull returns a vector
   library(janitor)
   df \%\textgreater\% adorn\_totals(fill='' ``)
   fill arguments allow to chose what will be displayed when the column is not numbers
+\item
+  Understand how a function is built with his source code
+  View(function\_name)
+  e.g.~View(adorn\_totals)
 \end{itemize}
 
 \hypertarget{how-to-explore-a-data-frame}{%
@@ -313,6 +405,7 @@ pull returns a vector
 \item
   check the type of a field with \textbf{class}\\
   class(df\$mois) -\textgreater{} date
+  class returns data type
 \item
   df \%\textgreater\% head()
 \item
@@ -451,6 +544,9 @@ sample()
   library(gapminder)\\
   data(``gapminder'')
 \item
+  Galton dataset
+  Galton dataset is in HistData library
+\item
   tidyr :
   pivot\_wider and pivot\_longer are from tidyverse (tidyr)
 \end{itemize}
@@ -473,6 +569,13 @@ sample()
   file.remove(temp\_file)
 \end{itemize}
 
+\hypertarget{advance-programming}{%
+\section{Advance programming}\label{advance-programming}}
+
+\emph{Expressions are a powerful tool for manipulating and executing R code.
+}Environments record associations between names and values.
+*Execution environments create a scope for variable names inside of functions.
+
 \hypertarget{learning-python}{%
 \chapter{Learning Python}\label{learning-python}}
 
@@ -487,6 +590,24 @@ sample()
 \chapter{Learning Git/Github}\label{learning-gitgithub}}
 
 \begin{itemize}
+\item
+  my actual 20230918 bookdown workflow
+  On github server on our repo, we need a .nojekyll file at the root
+  and we need the /docs folder with our files that are generated when lauching
+  ``build book''.
+  When I am currently working localy, I must open courses\_notes\_as\_a\_bookdown.Rproj
+  Then Rstudio opens. Then I open and I write/work in the .Rmd files.
+  Those are note the files that must be commited. So I placed them in my gitignore file with echo command \textgreater\textgreater{} etc.
+  One the files modified, I go in Rstudio right hand corner. I click build/build book.
+  Then I open git bash. I go to /projects/courses\_notes\_as\_a\_bookdow.Rproj
+  I think this is the good level to be but to be verified next time (if I need to go down in /docs)
+  I can make a git status. I have to make a git commit -a -m `labelmycommit'.
+  Then I have to make a git push.
+  And It is it. If everything has worked well, I can see my up to date book available in my github account.
+\item
+  three main states
+  each track file can be in one of the three main states: modified/stagged/commited
+  another state in untracked!
 \item
   git config user.name ``my\_name''
 \item
@@ -665,6 +786,12 @@ echo toto et titi \textgreater{} titi.txt
 \item
   set a file in executable mode
   chmod +x file\_name
+\item
+  copy a file
+  cp disk\_usage.py disk\_usage\_original.py
+\item
+  git config -- global user.name ``my\_name''
+  set the value for all git repos on the pc
 \end{itemize}
 
 \hypertarget{statistics-with-r}{%
@@ -1062,11 +1189,28 @@ blabla to open the link into a new tab
 
 .ext et on vient coller \#t= 5,25 \textgreater{} joue la vidéo ou l'audio de la seconde 5 à la seconde 25
 
+\hypertarget{different-sorts-of-inputs}{%
+\section{different sorts of inputs}\label{different-sorts-of-inputs}}
+
+include it into a form
+
 \begin{itemize}
 \tightlist
 \item
-  css
+  attributes are numerus
+  value, placeholder, readonly (the field cannot be edited), required (necessary before the input is submitted - permet de s'assurer que toutes les données sont saisies), name (used to identify the control when it is submitted to the server)
 \end{itemize}
+
+=\textgreater{} radio button
+
+\textless label=``you are minor''\textgreater{}
+
+drop down (?)
+Red
+Blue
+
+\hypertarget{learning-css}{%
+\chapter{Learning CSS}\label{learning-css}}
 
 h1 \{color:\}
 selector property colon value of the property
@@ -1092,146 +1236,139 @@ selector property colon value of the property
 
 exemples:
 
-\begin{itemize}
-\tightlist
-\item
-  simple selectors
-\item
-  tag selectors
-\end{itemize}
+\hypertarget{simple-selectors}{%
+\section{simple selectors}\label{simple-selectors}}
 
-\begin{itemize}
-\tightlist
-\item
-  class selectors (class = a group of elements)
-\end{itemize}
+\hypertarget{tag-selectors}{%
+\subsection{tag selectors}\label{tag-selectors}}
+
+\hypertarget{class-selectors-class-a-group-of-elements}{%
+\subsection{class selectors (class = a group of elements)}\label{class-selectors-class-a-group-of-elements}}
 
 .redBackground \{
 background-color : red
 \}
 
-\begin{itemize}
-\tightlist
-\item
-  id selectors
-  match a single element with a special ID attribute
-  (each and every html element has a unique id)
-\end{itemize}
+\hypertarget{id-selectors}{%
+\subsection{id selectors}\label{id-selectors}}
+
+match a single element with a special ID attribute
+(each and every html element has a unique id)
 
 This is third h1
 
-\begin{itemize}
-\tightlist
-\item
-  universal selector
-  will math all elements in the page
-\end{itemize}
+\hypertarget{universal-selector}{%
+\subsection{universal selector}\label{universal-selector}}
 
-\begin{itemize}
-\item
-  CSS combined selectors also called combinators
-\item
-  descendant selector
-\end{itemize}
+will math all elements in the page
 
-\begin{itemize}
-\tightlist
-\item
-  child selector
-  apply only to \textbf{direct children} not to all descendants
+\hypertarget{css-combined-selectors-also-called-combinators}{%
+\section{CSS combined selectors also called combinators}\label{css-combined-selectors-also-called-combinators}}
 
-  parent \textgreater{} child \{
-  color:blue;
-  \}
-\end{itemize}
+\hypertarget{descendant-selector}{%
+\subsection{descendant selector}\label{descendant-selector}}
+
+\hypertarget{child-selector}{%
+\subsection{child selector}\label{child-selector}}
+
+apply only to \textbf{direct children} not to all descendants
 
 div \textgreater{} h1 \{
 color:red;
 \}
 s'applique seulement aux h1 directement sous un div. S'il y a un tag intermédiaire (notion de dépendant), ça ne s'appliquera pas.
 
-\begin{itemize}
-\tightlist
-\item
-  adjacent sibling selector :
+\hypertarget{adjacent-sibling-selector}{%
+\subsection{adjacent sibling selector :}\label{adjacent-sibling-selector}}
 
-  h1 + h2 \{
-  color:blue;
-  \}
-\end{itemize}
+\hypertarget{general-sibling-selector}{%
+\subsection{general sibling selector :}\label{general-sibling-selector}}
 
-\begin{itemize}
-\item
-  general sibling selector :
-  h1 \textasciitilde{} h2 \{
-  color:blue;
-  \}
-\item
-  pseudo class selectors :
-  target specific elements based on their current states such as hovered, click\ldots{}
-\item
-  :hover pseudo class used to style an element when the user hovers over it with a mouse
-  example
-  Click me
-\end{itemize}
+h1 \textasciitilde{} h2 \{
+color:blue;
+\}
 
-\begin{itemize}
-\tightlist
-\item
-  :activate
-  when a button is clicked
-\end{itemize}
+\hypertarget{pseudo-class-selectors}{%
+\section{pseudo class selectors}\label{pseudo-class-selectors}}
+
+target specific elements based on their current states such as hovered, click\ldots{}
+
+\hypertarget{hover-pseudo-class-used-to-style-an-element-when-the-user-hovers-over-it-with-a-mouse}{%
+\subsection{:hover pseudo class used to style an element when the user hovers over it with a mouse}\label{hover-pseudo-class-used-to-style-an-element-when-the-user-hovers-over-it-with-a-mouse}}
+
+example
+Click me
+
+\hypertarget{activate}{%
+\subsection{:activate}\label{activate}}
+
+when a button is clicked
 
 Click me
 
-\begin{itemize}
-\tightlist
-\item
-  :visited
-  when a link had been visited
-\end{itemize}
+\hypertarget{visited}{%
+\subsection{:visited}\label{visited}}
+
+when a link had been visited
 
 Click here
 
-\begin{itemize}
-\tightlist
-\item
-  :focus
-\end{itemize}
+\hypertarget{focus}{%
+\subsection{:focus}\label{focus}}
 
-\begin{itemize}
-\item
-  :nth-child
-  to select elements based on their position in the parent element
+\hypertarget{nth-child}{%
+\subsection{:nth-child}\label{nth-child}}
 
-  Apply the style only on the first paragraph
-\item
-  :nth-child(2n) : apply only to even elements
-\item
-  :nth-child(2n+1) : apply only to odd elements
-\item
-  :nth-child(odd) works to
-\item
-  :nth-child(even)
-\item
-  :first-child
-  to select the first child element of a parent
-\item
-  :last-child
-  to select the last child element of a parent
-\end{itemize}
+to select elements based on their position in the parent element
+
+Apply the style only on the first paragraph
+
+\hypertarget{nth-child2n-apply-only-to-even-elements}{%
+\subsection{:nth-child(2n) : apply only to even elements}\label{nth-child2n-apply-only-to-even-elements}}
+
+\hypertarget{nth-child2n1-apply-only-to-odd-elements}{%
+\subsection{:nth-child(2n+1) : apply only to odd elements}\label{nth-child2n1-apply-only-to-odd-elements}}
+
+\hypertarget{nth-childodd-works-to}{%
+\subsection{:nth-child(odd) works to}\label{nth-childodd-works-to}}
+
+\hypertarget{nth-childeven}{%
+\subsection{:nth-child(even)}\label{nth-childeven}}
+
+\hypertarget{first-child}{%
+\subsection{:first-child}\label{first-child}}
+
+to select the first child element of a parent
+
+\hypertarget{last-child}{%
+\subsection{:last-child}\label{last-child}}
+
+to select the last child element of a parent
 
 reprendre à pseudo elements après pseudo class selectors part 2
 
+\hypertarget{pseudo-elements}{%
+\section{pseudo elements}\label{pseudo-elements}}
+
+to style specified parts of an element
+you must include it inside your tag
+eg first letter of a paragraph
+denoted by two semi-colons
+
 \begin{itemize}
 \item
-  pseudo elements
-  to style specified parts of an element
-  you must include it inside your tag
-  eg first letter of a paragraph
-  denoted by two semi-colons
-\item
   ::before
+
+  p:before \{
+  content:'\,';
+  display:block; \# ou inline-block
+  width: 20px;
+  height: 20px;
+  background-colors: green;
+  border: none;
+  border-radius:50px;
+
+  \}
 \end{itemize}
 
 ::before
@@ -1241,18 +1378,166 @@ reprendre à pseudo elements après pseudo class selectors part 2
   ::after
 \item
   ::first-ligne
-\item
-  attribute selectors
-  style elements based on the presence or the value of their attributes
-  denoted by square brackets
-  in combination with other selectors
+\end{itemize}
+
+\hypertarget{attribute-selectors}{%
+\section{attribute selectors}\label{attribute-selectors}}
+
+style elements based on the presence or the value of their attributes
+denoted by square brackets
+in combination with other selectors
+
+\begin{itemize}
+\tightlist
 \item
   example:
 
-  Internal1
-  Google
+  a{[}href\^{}=``http''{]} \{
+  background-color:red;
+  \}
+\end{itemize}
+
+Internal1
+Google
+
+\begin{itemize}
+\tightlist
 \item
   example:
+\end{itemize}
+
+\hypertarget{css-font-properties}{%
+\section{Css font properties}\label{css-font-properties}}
+
+\hypertarget{css-positions}{%
+\section{Css positions}\label{css-positions}}
+
+control the position of an element on a webpage
+
+\hypertarget{static}{%
+\subsection{static}\label{static}}
+
+the default position of all html elements
+
+\hypertarget{relative}{%
+\subsection{relative}\label{relative}}
+
+top, bottom, left, right
+
+\hypertarget{secondDiv}{}
+
+with bottom, the two elements can overlap
+
+\hypertarget{absolute}{%
+\subsection{absolute}\label{absolute}}
+
+absolute removes
+\textless style
+\#firstDiv \{
+position:absolute;
+top:10px;
+\}
+position regarding to the body
+
+\hypertarget{fixed}{%
+\subsection{fixed}\label{fixed}}
+
+position:fixe;
+even when we are scrolling, the div remains fixed
+
+\hypertarget{css-float}{%
+\section{Css float}\label{css-float}}
+
+allows us to create multi column layout and wrap text around images or other elements
+allows to position the element on the left or the right of its container
+float often used in conjonction with clear property which control the behaviour of elements following our floating elements
+
+si on ne veut pas que les paragraphes s'ajustent autour de la photo,
+on leur ajoute une classe avec la propriété clear:right
+
+\hypertarget{css-display}{%
+\section{Css display}\label{css-display}}
+
+control the type of box used for an html element and how it is diplayed on the webpage
+values for display : Block, Inline and Inline Block
+
+block elements create a new line and take up the full width of their conteiner
+inline elements flow with text and take up only as much width as necessary
+inline-block allows to fix the height for a div whereas it is not possible with inline
+** span by default has display type inline div by default has display type : block **
+
+if we want to change (to change default behaviour):
+
+\hypertarget{css-units}{%
+\section{Css units}\label{css-units}}
+
+marjorly two types one is absolute and the other is relative
+
+\hypertarget{relative-1}{%
+\subsection{relative}\label{relative-1}}
+
+depends on the screen size
+10px
+10vw (viewport width)
+10vh (viewport height)
+10em
+1rem
+
+rem defines size from the root
+em takes his size from its parents
+
+\hypertarget{css-specify-colors}{%
+\section{Css specify colors}\label{css-specify-colors}}
+
+\begin{itemize}
+\tightlist
+\item
+  with color name
+\item
+  with RGB
+\item
+  with RGBA (last argument for opacity)
+\item
+  with \#Hexade
+\end{itemize}
+
+\hypertarget{css-box-models}{%
+\section{Css box models}\label{css-box-models}}
+
+basicaly in Css model, everything is a box defined lik this:
+content area \textgreater{} padding \textgreater{} margin \textgreater{} border
+
+example
+
+Fifth!!! Box model
+
+\hypertarget{divOne}{}
+This is div One
+
+\hypertarget{divTwo}{}
+This is div Two
+
+\begin{itemize}
+\tightlist
+\item
+  padding
+  you can define padding-top, right, bottom, lef
+  padding-right:10px
+  or padding:10px 5px 10 px 5px (from top to left)
+\end{itemize}
+
+example:
+\#divTwo \{
+background-color: aqua;
+border: 1px solid black;
+padding: 40px 5px 10px 60px ;
+\}
+
+\begin{itemize}
+\tightlist
+\item
+  Property box-sizing:border-box
+  for adjusting
 \end{itemize}
 
 \hypertarget{keyboard-shortcuts}{%
